@@ -2,7 +2,8 @@
 
 A full-stack AI chatbot application built with Next.js frontend and Django backend, featuring file upload processing, real-time chat sharing, PDF generation, and Docker containerization.
 
-![AI Chatbot Interface](docs/images/ai-chatbot-screenshot.png)
+<img width="1919" height="935" alt="image" src="https://github.com/user-attachments/assets/d4be0d9c-bfa2-40fd-a835-3bbcfa795353" />
+
 
 *Modern, professional interface with dark theme, gradient backgrounds, and intuitive user experience*
 
