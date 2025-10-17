@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+  # Django Backend
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: ai-chatbot-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - DEBUG=False
+      - SECRET_KEY=your-secret-key-here
+      - GROQ_API_KEY=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
+      - ALLOWED_HOSTS=localhost,127.0.0.1,backend
+      - CORS_ALLOWED_ORIGINS=http://localhost:3000,http://127.0.0.1:3000,http://frontend:3000
+    volumes:
+      - backend_media:/app/media
+      - backend_static:/app/static
+    networks:
+      - ai-chatbot-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import requests; requests.get('http://localhost:8000/api/chat/export-info/')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Next.js Frontend
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: ai-chatbot-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_API_URL=http://localhost:8000/api
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - ai-chatbot-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+volumes:
+  backend_media:
+  backend_static:
+
+networks:
+  ai-chatbot-network:
+    driver: bridge
