@@ -12,7 +12,7 @@ services:
     environment:
       - DEBUG=False
       - SECRET_KEY=your-secret-key-here
-      - GROQ_API_KEY=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
+      - GROQ_API_KEY=
       - ALLOWED_HOSTS=localhost,127.0.0.1,backend
       - CORS_ALLOWED_ORIGINS=http://localhost:3000,http://127.0.0.1:3000,http://frontend:3000
     volumes:
