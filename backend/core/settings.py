@@ -129,7 +129,7 @@ CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_ALL_ORIGINS = DEBUG  # Only for development
 
 # Groq API Configuration
-GROQ_API_KEY = os.getenv('GROQ_API_KEY', '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')
+GROQ_API_KEY = os.getenv('GROQ_API_KEY', '')
 GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions'
 
 # File upload settings
